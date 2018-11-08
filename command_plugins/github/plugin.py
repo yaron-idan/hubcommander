@@ -369,6 +369,11 @@ class GitHubPlugin(BotCommander):
 
         # Grant access:
         try:
+            if team == 'developers':
+                send_error(data["channel"],
+                       "@{}: Problem encountered adding the team.\n"
+                       "The problem is: you cannot assign admin rights to the developers team".format(user_data["name"]), thread=data["ts"])
+                return
             self.set_repo_permissions(repo, org, team_id, permission)
 
         except ValueError as ve:
