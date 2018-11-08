@@ -1290,6 +1290,9 @@ class GitHubPlugin(BotCommander):
             raise requests.exceptions.RequestException(message)
 
     def set_repo_permissions(self, repo_to_set, org, team, permission):
+        if team == 'developers':
+             raise Exception('Developers cannot be granted admin privileges')
+                
         headers = {
             'Authorization': 'token {}'.format(self.token),
             'Accept': GITHUB_VERSION
@@ -1299,7 +1302,7 @@ class GitHubPlugin(BotCommander):
         data = {
             "permission": permission
         }
-
+        
         response = requests.put(
             '{}{}'.format(GITHUB_URL, api_part),
             data=json.dumps(data),
