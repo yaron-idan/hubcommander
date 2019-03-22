@@ -369,10 +369,11 @@ class GitHubPlugin(BotCommander):
 
         # Grant access:
         try:
-            if team == 'developers':
+            if team == 'developers' and permission == 'admin':
                 send_error(data["channel"],
-                       "@{}: Problem encountered adding the team.\n"
-                       "The problem is: you cannot assign admin rights to the developers team".format(user_data["name"]), thread=data["ts"])
+                       "@{}: you cannot assign admin privileges to all developers.\n"
+                       "Please choose a specific team as the recipient of admin privileges.".format(user_data["name"]), thread=data["ts"])
+                       
                 return
             self.set_repo_permissions(repo, org, team_id, permission)
 
@@ -1294,10 +1295,7 @@ class GitHubPlugin(BotCommander):
                 .format(response.status_code)
             raise requests.exceptions.RequestException(message)
 
-    def set_repo_permissions(self, repo_to_set, org, team, permission):
-        if team == 'developers':
-             raise Exception('Developers cannot be granted admin privileges')
-                
+    def set_repo_permissions(self, repo_to_set, org, team, permission):        
         headers = {
             'Authorization': 'token {}'.format(self.token),
             'Accept': GITHUB_VERSION
