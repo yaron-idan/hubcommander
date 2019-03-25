@@ -5,7 +5,8 @@ ADD WHATEVER CODE YOU NEED TO DO HERE TO DECRYPT CREDENTIALS FOR USE OF YOUR BOT
 
 def get_credentials():
     # Here is a KMS example: (uncomment to make work)
-    # return kms_decrypt()
+    return kamus_decrypt()
+
 
     # For Docker, encryption is assumed to be happening outside of this, and the secrets
     # are instead being passed in as environment variables:
@@ -55,6 +56,11 @@ def get_credentials():
 #     kms_client = boto3.client("kms", region_name=KMS_REGION)
 #     decrypt_res = kms_client.decrypt(CiphertextBlob=bytes(base64.b64decode(KMS_CIPHERTEXT)))
 #     return json.loads(decrypt_res["Plaintext"].decode("utf-8"))
+
+def kamus_decrypt():
+    import json
+    with open('/secrets/secrets.json') as f:
+        return json.load(f)
 
 
 """
