@@ -11,7 +11,7 @@ RUN \
   # Install Python:
   apt-get update && \
   apt-get upgrade -y && \
-  apt-get install python3 python3-venv nano -y
+  apt-get install python3 python3-venv nano jq -y
 
 # Add all the other stuff to the plugins:
 COPY / /python-rtmbot-${RTM_VERSION}/hubcommander

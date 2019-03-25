@@ -87,7 +87,11 @@ def setup(slackclient):
     """
     # Need to open the secrets file:
     secrets = get_credentials()
-
+    print("Printing secrets")
+    print("================")
+    print(secrets)
+    print("Printed secrets")
+    print("===============")
     from . import bot_components
     bot_components.SLACK_CLIENT = slackclient
 
