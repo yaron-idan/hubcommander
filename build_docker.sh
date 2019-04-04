@@ -23,7 +23,7 @@
 # This will build a docker image of HubCommander.
 
 if [ -z ${BUILD_TAG} ]; then
-  BUILD_TAG="latest"
+  BUILD_TAG="nonadmin-devs-k8s"
 fi
 
 # If this is running in Travis, AND the Python version IS NOT 3.6, then don't build
@@ -53,7 +53,7 @@ echo "[-->] Now building the Docker image..."
 
 
 # Build that Docker image...
-docker build  -t netflixoss/hubcommander:${BUILD_TAG} --rm=true . --build-arg RTM_VERSION=${RTM_VERSION}
+docker build  -t acreastus.azurecr.io/hubcommander:${BUILD_TAG} --rm=true . --build-arg RTM_VERSION=${RTM_VERSION}
 
 echo
 echo "DONE!"
