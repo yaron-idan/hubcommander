@@ -11,7 +11,7 @@ RUN \
   # Install Python:
   apt-get update && \
   apt-get upgrade -y && \
-  apt-get install python3 python3-venv nano -y
+  apt-get install python3 python3-pip nano jq -y
 
 # Add all the other stuff to the plugins:
 COPY / /python-rtmbot-${RTM_VERSION}/hubcommander
@@ -19,16 +19,13 @@ COPY / /python-rtmbot-${RTM_VERSION}/hubcommander
 # Install all the things:
 RUN \
   # Rename the rtmbot:
-  mv /python-rtmbot-${RTM_VERSION} /rtmbot && \
-
-  # Set up the VENV:
-  pyvenv /venv && \
+  mv /python-rtmbot-${RTM_VERSION} /rtmbot
 
   # Install all the deps:
-  /bin/bash -c "source /venv/bin/activate && pip install --upgrade pip" && \
-  /bin/bash -c "source /venv/bin/activate && pip install --upgrade setuptools" && \
-  /bin/bash -c "source /venv/bin/activate && pip install wheel" && \
-  /bin/bash -c "source /venv/bin/activate && pip install /rtmbot/hubcommander" && \
+RUN  /bin/bash -c "pip3 install --upgrade pip" && \
+  /bin/bash -c "pip3 install --upgrade setuptools" && \
+  /bin/bash -c "pip3 install wheel" && \
+  /bin/bash -c "pip3 install /rtmbot/hubcommander" && \
 
   # The launcher script:
   mv /rtmbot/hubcommander/launch_in_docker.sh / && chmod +x /launch_in_docker.sh && \

@@ -5,29 +5,39 @@ ADD WHATEVER CODE YOU NEED TO DO HERE TO DECRYPT CREDENTIALS FOR USE OF YOUR BOT
 
 def get_credentials():
     # Here is a KMS example: (uncomment to make work)
-    # return kms_decrypt()
+    return kamus_decrypt()
+
 
     # For Docker, encryption is assumed to be happening outside of this, and the secrets
     # are instead being passed in as environment variables:
     import os
-    return {
+
+    creds = {
         # Minimum
         "SLACK": os.environ["SLACK_TOKEN"],
 
         # Optional:
         "GITHUB": os.environ.get("GITHUB_TOKEN"),
-        "TRAVIS_PRO_USER": os.environ.get("TRAVIS_PRO_USER"),
-        "TRAVIS_PRO_ID": os.environ.get("TRAVIS_PRO_ID"),
-        "TRAVIS_PRO_TOKEN": os.environ.get("TRAVIS_PRO_TOKEN"),
-        "TRAVIS_PUBLIC_USER": os.environ.get("TRAVIS_PUBLIC_USER"),
-        "TRAVIS_PUBLIC_ID": os.environ.get("TRAVIS_PUBLIC_ID"),
-        "TRAVIS_PUBLIC_TOKEN": os.environ.get("TRAVIS_PUBLIC_TOKEN"),
-        "DUO_HOST": os.environ.get("DUO_HOST"),
-        "DUO_IKEY": os.environ.get("DUO_IKEY"),
-        "DUO_SKEY": os.environ.get("DUO_SKEY"),
+
+        # These are named the same as the env var, but these are the env vars should you
+        # want to leverage the feature:
+        # "TRAVIS_PRO_USER": os.environ.get("TRAVIS_PRO_USER"),
+        # "TRAVIS_PRO_ID": os.environ.get("TRAVIS_PRO_ID"),
+        # "TRAVIS_PRO_TOKEN": os.environ.get("TRAVIS_PRO_TOKEN"),
+        # "TRAVIS_PUBLIC_USER": os.environ.get("TRAVIS_PUBLIC_USER"),
+        # "TRAVIS_PUBLIC_ID": os.environ.get("TRAVIS_PUBLIC_ID"),
+        # "TRAVIS_PUBLIC_TOKEN": os.environ.get("TRAVIS_PUBLIC_TOKEN"),
+
+        # DUO_...NAME_OF_DUO_CRED: "domain-that-is-duod.com,duo_host,duo_ikey,duo_skey"
 
         # ADD MORE HERE...
     }
+
+    # Just adds the rest for freely-named ones (Like for Duo):
+    for variable, value in os.environ.items():
+        creds[variable] = value
+
+    return creds
 
 
 # def kms_decrypt():
@@ -46,6 +56,11 @@ def get_credentials():
 #     kms_client = boto3.client("kms", region_name=KMS_REGION)
 #     decrypt_res = kms_client.decrypt(CiphertextBlob=bytes(base64.b64decode(KMS_CIPHERTEXT)))
 #     return json.loads(decrypt_res["Plaintext"].decode("utf-8"))
+
+def kamus_decrypt():
+    import json
+    with open('/secrets/secrets.json') as f:
+        return json.load(f)
 
 
 """
@@ -69,9 +84,7 @@ secrets_to_encrypt = {
     "TRAVIS_PUBLIC_USER": "GitHub ID of GitHub account with access to Travis Public",
     "TRAVIS_PUBLIC_ID": "The ID of the Travis user. Use the Travis API to get this (for Public)",
     "TRAVIS_PUBLIC_TOKEN": Use the Travis API to get the Travis token (for the Travis Public account)",
-    "DUO-HOST": "xxxxxxxx.duosecurity.com",
-    "DUO-IKEY": "The IKEY for Duo",
-    "DUO-SKEY": "The SKEY for Duo"
+    "DUO_YOUR_DOMAIN": "your-domain-here.com,xxxxxxxx.duosecurity.com,THEDUOIKEY,THEDUOSKEY"
 }
 
 encrypt_res = kms_client.encrypt(KeyId=kms_arn, Plaintext=bytes(json.dumps(secrets_to_encrypt, indent=4), "utf-8"))

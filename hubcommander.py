@@ -44,9 +44,10 @@ class HubCommander(Plugin):
         :param data:
         :return:
         """
+        
         if data["channel"] in IGNORE_ROOMS:
             return
-
+        
         if len(ONLY_LISTEN) > 0 and data["channel"] not in ONLY_LISTEN:
             return
 
@@ -87,7 +88,6 @@ def setup(slackclient):
     """
     # Need to open the secrets file:
     secrets = get_credentials()
-
     from . import bot_components
     bot_components.SLACK_CLIENT = slackclient
 
@@ -96,7 +96,7 @@ def setup(slackclient):
         print("\t[ ] Enabling Auth Plugin: {}".format(name))
         plugin.setup(secrets)
         print("\t[+] Successfully enabled auth plugin \"{}\"".format(name))
-    print("[✔] Completed enabling auth plugins plugins.")
+    print("[V] Completed enabling auth plugins plugins.")
 
     print("[-->] Enabling Command Plugins")
 
@@ -108,9 +108,14 @@ def setup(slackclient):
             if cmd["enabled"]:
                 print("\t[+] Adding command: \'{cmd}\'".format(cmd=cmd["command"]))
                 COMMANDS[cmd["command"].lower()] = cmd
-                HELP_TEXT.append("`{cmd}` - {help}\n".format(cmd=cmd["command"], help=cmd["help"]))
+
+                # Hidden commands: don't show on the help:
+                if cmd.get("help"):
+                    HELP_TEXT.append("`{cmd}` - {help}\n".format(cmd=cmd["command"], help=cmd["help"]))
+                else:
+                    print("\t[!] Not adding help text for hidden command: {}".format(cmd["command"]))
             else:
                 print("\t[/] Skipping disabled command: \'{cmd}\'".format(cmd=cmd["command"]))
         print("[+] Successfully enabled command plugin \"{}\"".format(name))
 
-    print("[✔] Completed enabling command plugins.")
+    print("[V] Completed enabling command plugins.")
