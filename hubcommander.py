@@ -44,9 +44,10 @@ class HubCommander(Plugin):
         :param data:
         :return:
         """
+        
         if data["channel"] in IGNORE_ROOMS:
             return
-
+        
         if len(ONLY_LISTEN) > 0 and data["channel"] not in ONLY_LISTEN:
             return
 
@@ -87,11 +88,6 @@ def setup(slackclient):
     """
     # Need to open the secrets file:
     secrets = get_credentials()
-    print("Printing secrets")
-    print("================")
-    print(secrets)
-    print("Printed secrets")
-    print("===============")
     from . import bot_components
     bot_components.SLACK_CLIENT = slackclient
 
@@ -100,7 +96,7 @@ def setup(slackclient):
         print("\t[ ] Enabling Auth Plugin: {}".format(name))
         plugin.setup(secrets)
         print("\t[+] Successfully enabled auth plugin \"{}\"".format(name))
-    print("[✔] Completed enabling auth plugins plugins.")
+    print("[V] Completed enabling auth plugins plugins.")
 
     print("[-->] Enabling Command Plugins")
 
@@ -122,4 +118,4 @@ def setup(slackclient):
                 print("\t[/] Skipping disabled command: \'{cmd}\'".format(cmd=cmd["command"]))
         print("[+] Successfully enabled command plugin \"{}\"".format(name))
 
-    print("[✔] Completed enabling command plugins.")
+    print("[V] Completed enabling command plugins.")

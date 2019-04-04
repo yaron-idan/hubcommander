@@ -22,7 +22,6 @@
 
 # Extract slack token
 SLACK_TOKEN=$(cat /secrets/secrets.json | jq '.SLACK' -r)
-echo $SLACK_TOKEN is the token
 # This will build a docker image of HubCommander.
 echo 'DEBUG: True' > /rtmbot/rtmbot.conf
 echo "SLACK_TOKEN: $SLACK_TOKEN" >> /rtmbot/rtmbot.conf
@@ -30,7 +29,10 @@ echo 'ACTIVE_PLUGINS:' >> /rtmbot/rtmbot.conf
 echo '    - hubcommander.hubcommander.HubCommander' >> /rtmbot/rtmbot.conf
 
 # Launch it!
-export PYTHONIOENCODING="UTF-8"
-source venv/bin/activate
+echo "finished creating rtmbot.conf"
+echo PYTHONIOENCODING="UTF-8"
+echo "not activated venv"
 cd /rtmbot
+echo "activating rtmbot"
 rtmbot
+echo "activated rtmbot"
