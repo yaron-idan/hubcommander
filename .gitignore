@@ -56,3 +56,4 @@ boto.cfg
 python-rtmbot-*/
 
 .cache/
+secrets/
