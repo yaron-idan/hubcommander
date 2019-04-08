@@ -36,7 +36,7 @@ cd /rtmbot
 echo "printing rtmbot.conf"
 cat rtmbot.conf
 echo "printing secrets.json"
-cat secrets.conf
+cat secrets.json
 echo "activating rtmbot"
 rtmbot
 echo "activated rtmbot"
