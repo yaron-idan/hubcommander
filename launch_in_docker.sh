@@ -33,6 +33,10 @@ echo "finished creating rtmbot.conf"
 echo PYTHONIOENCODING="UTF-8"
 echo "not activated venv"
 cd /rtmbot
+echo "printing rtmbot.conf"
+cat rtmbot.conf
+echo "printing secrets.json"
+cat secrets.conf
 echo "activating rtmbot"
 rtmbot
 echo "activated rtmbot"
