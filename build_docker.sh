@@ -26,6 +26,10 @@ if [ -z ${BUILD_TAG} ]; then
   BUILD_TAG="nonadmin-devs-k8s"
 fi
 
+if [ -z ${IMAGE_NAME} ]; then
+  IMAGE_NAME="hubcommander"
+fi
+
 # If this is running in Travis, AND the Python version IS NOT 3.6, then don't build
 # the Docker image:
 if [ $TRAVIS ]; then

@@ -59,7 +59,7 @@ def get_credentials():
 
 def kamus_decrypt():
     import json
-    with open('/secrets/secrets.json') as f:
+    with open('/rtmbot/secrets.json') as f:
         return json.load(f)
 
 
