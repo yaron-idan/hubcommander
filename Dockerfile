@@ -45,4 +45,4 @@ ENV SLACK_TOKEN="REPLACEMEINCMDLINE" \
     DUO_SKEY="REPLACEMEINCMDLINE"
 
 # Installation complete!  Ensure that things can run properly:
-ENTRYPOINT ["/bin/bash", "-c", "./launch_in_docker.sh"]
+CMD ["python3", "/launch_in_docker.py"]
