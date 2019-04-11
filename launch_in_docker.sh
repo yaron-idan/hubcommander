@@ -21,12 +21,12 @@
 ################################################################################
 
 # Extract slack token
-# SLACK_TOKEN=$(cat /secrets/secrets.json | jq '.SLACK' -r)
+ SLACK_TOKEN=$(cat /secrets/secrets.json | jq '.SLACK' -r)
 # # This will build a docker image of HubCommander.
-# echo 'DEBUG: True' > /rtmbot/rtmbot.conf
-# echo "SLACK_TOKEN: $SLACK_TOKEN" >> /rtmbot/rtmbot.conf
-# echo 'ACTIVE_PLUGINS:' >> /rtmbot/rtmbot.conf
-# echo '    - hubcommander.hubcommander.HubCommander' >> /rtmbot/rtmbot.conf
+ echo 'DEBUG: True' > /rtmbot/rtmbot.conf
+ echo "SLACK_TOKEN: $SLACK_TOKEN" >> /rtmbot/rtmbot.conf
+ echo 'ACTIVE_PLUGINS:' >> /rtmbot/rtmbot.conf
+ echo '    - hubcommander.hubcommander.HubCommander' >> /rtmbot/rtmbot.conf
 
 # Launch it!
 echo "finished creating rtmbot.conf"
@@ -38,5 +38,5 @@ cat rtmbot.conf
 echo "printing secrets.json"
 cat secrets.json
 echo "activating rtmbot"
-rtmbot
+exec python3 /rtmbot/rtmbot/bin/run_rtmbot.py
 echo "activated rtmbot"
