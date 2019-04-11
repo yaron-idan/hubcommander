@@ -28,7 +28,7 @@ RUN  /bin/bash -c "pip3 install --upgrade pip" && \
   /bin/bash -c "pip3 install /rtmbot/hubcommander" && \
 
   # The launcher script:
-  mv /rtmbot/hubcommander/launch_in_docker.py / && chmod +x /launch_in_docker.py && \
+  mv /rtmbot/hubcommander/launch_in_docker.py / && chmod +x /rtmbot/launch_in_docker.py && \
   rm /rtmbot/hubcommander/python-rtmbot-${RTM_VERSION}.tar.gz
 
 # DEFINE YOUR ENV VARS FOR SECRETS HERE:
