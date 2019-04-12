@@ -7,8 +7,9 @@ with open('/secrets/secrets.json') as secret_json:
     print(slack_token)
 
 with open('rtmbot.conf',"w+") as rtmbot_conf:
-    rtmbot_conf.write("DEBUG: True\n")
+    rtmbot_conf.write("DEBUG: False\n")
     rtmbot_conf.write("SLACK_TOKEN: %s\n" % (slack_token))
+    rtmbot_conf.write("LOGFILE: /dev/stderr\n")
     rtmbot_conf.write("ACTIVE_PLUGINS:\n")
     rtmbot_conf.write("    - hubcommander.hubcommander.HubCommander\n")
 
