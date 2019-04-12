@@ -45,4 +45,4 @@ ENV SLACK_TOKEN="REPLACEMEINCMDLINE" \
     DUO_SKEY="REPLACEMEINCMDLINE"
 
 # Installation complete!  Ensure that things can run properly:
-CMD ["python3", "/launch_in_docker.py"]
+CMD ["python3", "/rtmbot/launch_in_docker.py"]
