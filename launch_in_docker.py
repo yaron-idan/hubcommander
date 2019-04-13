@@ -2,10 +2,11 @@ import json
 import sys
 from rtmbot.bin.run_rtmbot import main
 
+print("moshe",file=sys.stderr)
 # Extract slack token
 with open('/secrets/secrets.json') as secret_json:    
     slack_token = json.loads(secret_json.read())['SLACK']
-    sys.stderr.write(slack_token)
+    print(slack_token,file=sys.stderr)
 
 with open('rtmbot.conf',"w+") as rtmbot_conf:
     rtmbot_conf.write("DEBUG: False\n")

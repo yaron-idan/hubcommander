@@ -90,6 +90,6 @@ secrets_to_encrypt = {
 encrypt_res = kms_client.encrypt(KeyId=kms_arn, Plaintext=bytes(json.dumps(secrets_to_encrypt, indent=4), "utf-8"))
 
 # Your results are:
-sys.stderr.write("The encrypted PTXT in B64:")
-sys.stderr.write(base64.b64encode(encrypt_res["CiphertextBlob"]).decode("utf-8"))
+print("The encrypted PTXT in B64:")
+print(base64.b64encode(encrypt_res["CiphertextBlob"]).decode("utf-8"))
 """

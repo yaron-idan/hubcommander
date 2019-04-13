@@ -70,7 +70,7 @@ class TravisPlugin(BotCommander):
         from hubcommander.command_plugins.enabled_plugins import COMMAND_PLUGINS
         if not COMMAND_PLUGINS.get("github"):
             self.commands = {}
-            sys.stderr.write("[X] Travis CI Plugin is not enabling any commands because"
+            print("[X] Travis CI Plugin is not enabling any commands because"
                   " the GitHub plugin is not enabled.")
             return
 

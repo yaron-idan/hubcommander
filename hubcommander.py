@@ -92,31 +92,31 @@ def setup(slackclient):
     from . import bot_components
     bot_components.SLACK_CLIENT = slackclient
 
-    sys.stderr.write("[-->] Enabling Auth Plugins")
+    print("[-->] Enabling Auth Plugins",file=sys.stderr)
     for name, plugin in AUTH_PLUGINS.items():
-        sys.stderr.write("\t[ ] Enabling Auth Plugin: {}".format(name))
+        print("\t[ ] Enabling Auth Plugin: {}".format(name),file=sys.stderr)
         plugin.setup(secrets)
-        sys.stderr.write("\t[+] Successfully enabled auth plugin \"{}\"".format(name))
-    sys.stderr.write("[V] Completed enabling auth plugins plugins.")
+        print("\t[+] Successfully enabled auth plugin \"{}\"".format(name),file=sys.stderr)
+    print("[V] Completed enabling auth plugins plugins.",file=sys.stderr)
 
-    sys.stderr.write("[-->] Enabling Command Plugins")
+    print("[-->] Enabling Command Plugins",file=sys.stderr)
 
     # Register the command_plugins plugins:
     for name, plugin in COMMAND_PLUGINS.items():
-        sys.stderr.write("[ ] Enabling Command Plugin: {}".format(name))
+        print("[ ] Enabling Command Plugin: {}".format(name),file=sys.stderr)
         plugin.setup(secrets)
         for cmd in plugin.commands.values():
             if cmd["enabled"]:
-                sys.stderr.write("\t[+] Adding command: \'{cmd}\'".format(cmd=cmd["command"]))
+                print("\t[+] Adding command: \'{cmd}\'".format(cmd=cmd["command"]),file=sys.stderr)
                 COMMANDS[cmd["command"].lower()] = cmd
 
                 # Hidden commands: don't show on the help:
                 if cmd.get("help"):
                     HELP_TEXT.append("`{cmd}` - {help}\n".format(cmd=cmd["command"], help=cmd["help"]))
                 else:
-                    sys.stderr.write("\t[!] Not adding help text for hidden command: {}".format(cmd["command"]))
+                    print("\t[!] Not adding help text for hidden command: {}".format(cmd["command"]),file=sys.stderr)
             else:
-                sys.stderr.write("\t[/] Skipping disabled command: \'{cmd}\'".format(cmd=cmd["command"]))
-        sys.stderr.write("[+] Successfully enabled command plugin \"{}\"".format(name))
+                print("\t[/] Skipping disabled command: \'{cmd}\'".format(cmd=cmd["command"]),file=sys.stderr)
+        print("[+] Successfully enabled command plugin \"{}\"".format(name),file=sys.stderr)
 
-    sys.stderr.write("[V] Completed enabling command plugins.")
+    print("[V] Completed enabling command plugins.",file=sys.stderr)
