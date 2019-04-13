@@ -47,4 +47,4 @@ ENV SLACK_TOKEN="REPLACEMEINCMDLINE" \
 WORKDIR /rtmbot
 
 # Installation complete!  Ensure that things can run properly:
-CMD ["python3", "/rtmbot/launch_in_docker.py"]
+CMD ["python3", "-u", "/rtmbot/launch_in_docker.py"]
