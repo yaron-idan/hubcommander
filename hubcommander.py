@@ -6,6 +6,7 @@
 
 .. moduleauthor:: Mike Grima <mgrima@netflix.com>
 """
+import sys
 from rtmbot.core import Plugin
 
 from hubcommander.auth_plugins.enabled_plugins import AUTH_PLUGINS
@@ -91,31 +92,31 @@ def setup(slackclient):
     from . import bot_components
     bot_components.SLACK_CLIENT = slackclient
 
-    print("[-->] Enabling Auth Plugins")
+    sys.stderr.write("[-->] Enabling Auth Plugins")
     for name, plugin in AUTH_PLUGINS.items():
-        print("\t[ ] Enabling Auth Plugin: {}".format(name))
+        sys.stderr.write("\t[ ] Enabling Auth Plugin: {}".format(name))
         plugin.setup(secrets)
-        print("\t[+] Successfully enabled auth plugin \"{}\"".format(name))
-    print("[V] Completed enabling auth plugins plugins.")
+        sys.stderr.write("\t[+] Successfully enabled auth plugin \"{}\"".format(name))
+    sys.stderr.write("[V] Completed enabling auth plugins plugins.")
 
-    print("[-->] Enabling Command Plugins")
+    sys.stderr.write("[-->] Enabling Command Plugins")
 
     # Register the command_plugins plugins:
     for name, plugin in COMMAND_PLUGINS.items():
-        print("[ ] Enabling Command Plugin: {}".format(name))
+        sys.stderr.write("[ ] Enabling Command Plugin: {}".format(name))
         plugin.setup(secrets)
         for cmd in plugin.commands.values():
             if cmd["enabled"]:
-                print("\t[+] Adding command: \'{cmd}\'".format(cmd=cmd["command"]))
+                sys.stderr.write("\t[+] Adding command: \'{cmd}\'".format(cmd=cmd["command"]))
                 COMMANDS[cmd["command"].lower()] = cmd
 
                 # Hidden commands: don't show on the help:
                 if cmd.get("help"):
                     HELP_TEXT.append("`{cmd}` - {help}\n".format(cmd=cmd["command"], help=cmd["help"]))
                 else:
-                    print("\t[!] Not adding help text for hidden command: {}".format(cmd["command"]))
+                    sys.stderr.write("\t[!] Not adding help text for hidden command: {}".format(cmd["command"]))
             else:
-                print("\t[/] Skipping disabled command: \'{cmd}\'".format(cmd=cmd["command"]))
-        print("[+] Successfully enabled command plugin \"{}\"".format(name))
+                sys.stderr.write("\t[/] Skipping disabled command: \'{cmd}\'".format(cmd=cmd["command"]))
+        sys.stderr.write("[+] Successfully enabled command plugin \"{}\"".format(name))
 
-    print("[V] Completed enabling command plugins.")
+    sys.stderr.write("[V] Completed enabling command plugins.")

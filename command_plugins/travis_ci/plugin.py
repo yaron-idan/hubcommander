@@ -8,7 +8,7 @@
 """
 import json
 import time
-
+import sys
 import requests
 
 from hubcommander.bot_components.bot_classes import BotCommander
@@ -70,7 +70,7 @@ class TravisPlugin(BotCommander):
         from hubcommander.command_plugins.enabled_plugins import COMMAND_PLUGINS
         if not COMMAND_PLUGINS.get("github"):
             self.commands = {}
-            print("[X] Travis CI Plugin is not enabling any commands because"
+            sys.stderr.write("[X] Travis CI Plugin is not enabling any commands because"
                   " the GitHub plugin is not enabled.")
             return
 
