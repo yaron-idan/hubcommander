@@ -44,5 +44,7 @@ ENV SLACK_TOKEN="REPLACEMEINCMDLINE" \
     DUO_IKEY="REPLACEMEINCMDLINE" \
     DUO_SKEY="REPLACEMEINCMDLINE"
 
+WORKDIR /rtmbot
+
 # Installation complete!  Ensure that things can run properly:
 CMD ["python3", "/rtmbot/launch_in_docker.py"]
