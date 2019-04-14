@@ -52,7 +52,7 @@ class HubCommander(Plugin):
         if len(ONLY_LISTEN) > 0 and data["channel"] not in ONLY_LISTEN:
             return
         
-        print("Message was not in an ignored or only listen room")
+        print("Message was not in an ignored or non-only listen room")
         
         # Only process if it starts with one of our GitHub commands:
         command_prefix = data["text"].split(" ")[0].lower()
