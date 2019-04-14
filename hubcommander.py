@@ -45,17 +45,20 @@ class HubCommander(Plugin):
         :param data:
         :return:
         """
-        
+        print("A message has arrived with the following text - %s" % (data["text"]))
         if data["channel"] in IGNORE_ROOMS:
             return
-        
+        print("Message was not in an ignored room")
         if len(ONLY_LISTEN) > 0 and data["channel"] not in ONLY_LISTEN:
             return
-
+        print("Message was not in an ignored or only listen room")
         # Only process if it starts with one of our GitHub commands:
         command_prefix = data["text"].split(" ")[0].lower()
         if COMMANDS.get(command_prefix):
             process_the_command(data, command_prefix)
+            print("Command %s was processed by hubby" % (command_prefix))
+        else: 
+            print("Command %s was not recognized by hubby" % (command_prefix))
 
 
 def process_the_command(data, command_prefix):
